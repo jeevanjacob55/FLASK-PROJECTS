@@ -21,6 +21,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///movies.db"
 Bootstrap5(app)
+#create forms
 class Editform(FlaskForm):
     rating = FloatField("Your Rating (0-10)", validators=[DataRequired()])
     review = StringField("Your Review", validators=[DataRequired()])
@@ -28,12 +29,12 @@ class Editform(FlaskForm):
 class FindMovieForm(FlaskForm):
     title = StringField("Movie Title", validators=[DataRequired()])
     submit = SubmitField("Add Movie")
-
+#create DB
 class Base(DeclarativeBase):
     pass
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
-
+#create tables
 class Movie(Base):
     __tablename__ = 'movies' 
 
@@ -48,7 +49,7 @@ class Movie(Base):
 
 with app.app_context():
     db.create_all()
-
+#method to add records to the table
 def add_movies():
     new_movie = Movie(
     name="Phone Booth",
@@ -81,6 +82,7 @@ def home():
     all_movies = result.scalars().all()
     return render_template("index.html", movies=all_movies)
 @app.route('/edit/<int:id>',methods = ["GET","POST"])
+#edit method
 def edit(id):
     movie = db.session.get(Movie, id)  # Retrieve movie by ID
     form = Editform() # Pre-fill form with existing data
