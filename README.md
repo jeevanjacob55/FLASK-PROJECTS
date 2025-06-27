@@ -6,3 +6,5 @@
 [CAFE DATA](./coffee-and-wifi/) ->  A Flask app using WTForms and Bootstrap to collect and display cafe data with CSV storage.
 
 [BOOK LIBRARY](./sql) -> A simple sql based flask app for keeping track of the books you read
+
+[MOVIE LIBRARY](./movie-library/) -> A Flask-based Movie Library web app with SQLite integration to add, edit, rate, review, and delete movies using WTForms and Bootstrap UI.
