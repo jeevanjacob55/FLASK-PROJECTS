@@ -121,8 +121,42 @@ def add_cafe():
 
 
 # HTTP PUT/PATCH - Update Record
+@app.route("/update-price/<int:cafe_id>", methods=["PATCH"])
+def update_price(cafe_id):
+    new_price = request.form.get("new_price")
+
+    if not new_price:
+        return jsonify({"error": "Missing 'new_price' in request"}), 400
+
+    try:
+        cafe = Cafe.query.get(cafe_id)
+        if cafe:
+            cafe.coffee_price = new_price
+            db.session.commit()
+            return jsonify({"success": f"Updated coffee price to {new_price} for cafe ID {cafe_id}"}), 200
+        else:
+            return jsonify({"error": f"Cafe with ID {cafe_id} not found."}), 404
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # HTTP DELETE - Delete Record
+@app.route("/report-closed/<int:cafe_id>", methods=["DELETE"])
+def delete_cafe(cafe_id):
+    api_key = request.args.get("api_key") #get the argument passed after ?
+    
+    # api verification
+    if api_key != "TopSecretAPIKey":
+        return jsonify({"error": "You are not authorized to perform this action."}), 403
+
+    # Try to find the cafe
+    cafe = Cafe.query.get(cafe_id) #get cafe by cafe_id
+    if cafe:
+        db.session.delete(cafe)
+        db.session.commit()
+        return jsonify({"success": f"Cafe with ID {cafe_id} has been deleted."}), 200
+    else:
+        return jsonify({"error": f"No cafe found with ID {cafe_id}."}), 404
 
 
 if __name__ == '__main__':
