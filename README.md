@@ -8,3 +8,6 @@
 [BOOK LIBRARY](./sql) -> A simple sql based flask app for keeping track of the books you read
 
 [MOVIE LIBRARY](./movie-library/) -> A Flask-based Movie Library web app with SQLite integration to add, edit, rate, review, and delete movies using WTForms and Bootstrap UI.
+
+[CAFE RESTful API](./CAFE-EXPLORER-API) -> A Flask-based RESTful API for managing and retrieving cafe data, including amenities, location, and coffee prices. Built with SQLAlchemy, this project allows CRUD operations on a SQLite database of cafes.
+
